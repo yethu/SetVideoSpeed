@@ -1,0 +1,24 @@
+{
+  "name": "Set Video Speed",
+  "version": "1.0",
+  "description": "This extension allows manually setting video playback rate",
+  "permissions": ["activeTab", "declarativeContent", "storage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "images/extension_toolbar_icon_16.png",
+      "32": "images/extension_toolbar_icon_32.png"
+    }
+  },
+  "icons": {
+    "16": "images/extension_toolbar_icon_16.png",
+    "32": "images/extension_toolbar_icon_32.png",
+    "48": "images/extension_toolbar_icon_48.png",
+    "128": "images/extension_toolbar_icon_128.png"
+  },
+  "manifest_version": 2
+}
