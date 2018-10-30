@@ -8,17 +8,21 @@ const DEFAULT_RATE = 1;
 const updateUI = () =>
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     let activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, {}, response => {
-      const { videoExists, currentRate } = response;
-      playbackRate.value = currentRate;
+    chrome.tabs.sendMessage(activeTab.id, { command: 'query' }, response => {
+      if (!!response) {
+        const { currentRate } = response;
+        playbackRate.value = currentRate;
+      }
     });
   });
 
 updateUI();
 
 const setRate = rate => {
-  let code = `document.getElementsByTagName('video')[0].playbackRate = ${rate}`;
-  chrome.tabs.executeScript({ code });
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    let activeTab = tabs[0];
+    chrome.tabs.sendMessage(activeTab.id, { command: 'set_rate', rate });
+  });
 };
 
 const setRateFromInput = val => {
