@@ -1,3 +1,5 @@
+'use strict';
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   let videos = document.getElementsByTagName('video');
   let videoExists = videos.length != 0;

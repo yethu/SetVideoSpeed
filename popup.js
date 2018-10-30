@@ -1,3 +1,5 @@
+'use strict';
+
 let playbackRate = document.getElementById('playbackRate');
 let setPlaybackRate = document.getElementById('setPlaybackRate');
 let resetPlaybackRate = document.getElementById('resetPlaybackRate');
