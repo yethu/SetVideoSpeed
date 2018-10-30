@@ -1,6 +1,6 @@
 {
   "name": "Set Video Speed",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "This extension allows manually setting video playback rate",
   "permissions": ["activeTab", "declarativeContent"],
   "background": {
