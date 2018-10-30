@@ -2,10 +2,10 @@
 <html>
 
 <head>
-  <link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
   <style type="text/css">
-    body {
-      font-family: 'Noto Sans', sans-serif;
+    label {
+      line-height: 2;
+      font-size: 1.25em;
     }
 
     input {
@@ -20,6 +20,7 @@
 </head>
 
 <body>
+  <label for="playbackRate">playback rate:</label>
   <input type="number" name="playbackRate" id="playbackRate" value="1" step="0.1" min="0" />
   <button id="setPlaybackRate">Set</button>
   <button id="resetPlaybackRate">Reset</button>
