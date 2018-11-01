@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       break;
     case ACTIONS.REQUEST_QUERY:
     default:
-      currentRate = videos[0].playbackRate;
+      if (videoExists) currentRate = videos[0].playbackRate;
       sendResponse(
         buildMessage(ACTIONS.FULFILLED_QUERY, videoExists, {
           rate: currentRate,
