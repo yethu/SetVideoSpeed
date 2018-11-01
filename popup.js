@@ -6,16 +6,25 @@ let resetPlaybackRate = document.getElementById('resetPlaybackRate');
 let closePopUp = document.getElementById('closePopUp');
 
 const DEFAULT_RATE = 1;
+const ACTIONS = {
+  REQUEST_QUERY: 'REQUSET_QUERY',
+  REQUEST_SET_RATE: 'REQUEST_SET_RATE',
+  FULFILLED_QUERY: 'FULFILLED_QUERY',
+  FULFILLED_SET_RATE: 'FULFILLED_SET_RATE',
+};
 
 const updateUI = () =>
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     let activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, { command: 'query' }, response => {
-      if (!!response) {
-        const { currentRate } = response;
-        playbackRate.value = currentRate;
+    chrome.tabs.sendMessage(
+      activeTab.id,
+      { action: ACTIONS.REQUEST_QUERY, data: {} },
+      response => {
+        const { action, success, data } = response;
+        if (action == ACTIONS.FULFILLED_QUERY && success)
+          playbackRate.value = data.rate;
       }
-    });
+    );
   });
 
 updateUI();
@@ -23,7 +32,10 @@ updateUI();
 const setRate = rate => {
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     let activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, { command: 'set_rate', rate });
+    chrome.tabs.sendMessage(activeTab.id, {
+      action: ACTIONS.REQUEST_SET_RATE,
+      data: { rate },
+    });
   });
 };
 
