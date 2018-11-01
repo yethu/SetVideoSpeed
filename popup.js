@@ -6,12 +6,6 @@ let resetPlaybackRate = document.getElementById('resetPlaybackRate');
 let closePopUp = document.getElementById('closePopUp');
 
 const DEFAULT_RATE = 1;
-const ACTIONS = {
-  REQUEST_QUERY: 'REQUSET_QUERY',
-  REQUEST_SET_RATE: 'REQUEST_SET_RATE',
-  FULFILLED_QUERY: 'FULFILLED_QUERY',
-  FULFILLED_SET_RATE: 'FULFILLED_SET_RATE',
-};
 
 const updateUI = () =>
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {

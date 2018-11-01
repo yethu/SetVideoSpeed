@@ -17,7 +17,7 @@
   "content_scripts": [
     {
       "matches": ["https://*.youtube.com/*"],
-      "js": ["content.js"]
+      "js": ["constants.js", "content.js"]
     }
   ],
   "icons": {
