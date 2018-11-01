@@ -1,5 +1,12 @@
 'use strict';
 
+const ACTIONS = {
+  REQUEST_QUERY: 'REQUSET_QUERY',
+  REQUEST_SET_RATE: 'REQUEST_SET_RATE',
+  FULFILLED_QUERY: 'FULFILLED_QUERY',
+  FULFILLED_SET_RATE: 'FULFILLED_SET_RATE',
+};
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   let videos = document.getElementsByTagName('video');
   let videoExists = videos.length != 0;
