@@ -1,3 +1,5 @@
+'use strict';
+
 let playbackRate = document.getElementById('playbackRate');
 let setPlaybackRate = document.getElementById('setPlaybackRate');
 let resetPlaybackRate = document.getElementById('resetPlaybackRate');
@@ -8,12 +10,15 @@ const DEFAULT_RATE = 1;
 const updateUI = () =>
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     let activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, { command: 'query' }, response => {
-      if (!!response) {
-        const { currentRate } = response;
-        playbackRate.value = currentRate;
+    chrome.tabs.sendMessage(
+      activeTab.id,
+      { action: ACTIONS.REQUEST_QUERY, data: {} },
+      response => {
+        const { action, success, data } = response;
+        if (action == ACTIONS.FULFILLED_QUERY && success)
+          playbackRate.value = data.rate;
       }
-    });
+    );
   });
 
 updateUI();
@@ -21,7 +26,10 @@ updateUI();
 const setRate = rate => {
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     let activeTab = tabs[0];
-    chrome.tabs.sendMessage(activeTab.id, { command: 'set_rate', rate });
+    chrome.tabs.sendMessage(activeTab.id, {
+      action: ACTIONS.REQUEST_SET_RATE,
+      data: { rate },
+    });
   });
 };
 
