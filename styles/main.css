@@ -36,7 +36,7 @@ button#closePopUp {
   color: #cd201f;
 }
 
-form {
+.form {
   display: flex;
   flex-direction: column;
 }
