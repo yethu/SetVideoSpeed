@@ -6,12 +6,6 @@ let resetPlaybackRate = document.getElementById('resetPlaybackRate');
 let closePopUp = document.getElementById('closePopUp');
 
 const DEFAULT_RATE = 1;
-const ACTIONS = {
-  REQUEST_QUERY: 'REQUSET_QUERY',
-  REQUEST_SET_RATE: 'REQUEST_SET_RATE',
-  FULFILLED_QUERY: 'FULFILLED_QUERY',
-  FULFILLED_SET_RATE: 'FULFILLED_SET_RATE',
-};
 
 const updateUI = () =>
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
@@ -20,9 +14,12 @@ const updateUI = () =>
       activeTab.id,
       { action: ACTIONS.REQUEST_QUERY, data: {} },
       response => {
-        const { action, success, data } = response;
-        if (action == ACTIONS.FULFILLED_QUERY && success)
-          playbackRate.value = data.rate;
+        try {
+          const { action, success, data } = objectContract(response);
+          if (action == ACTIONS.FULFILLED_QUERY && success) playbackRate.value = data.rate;
+        } catch (e) {
+          console.warn('Received invalid message.');
+        }
       }
     );
   });
