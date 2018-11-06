@@ -20,9 +20,12 @@ const updateUI = () =>
       activeTab.id,
       { action: ACTIONS.REQUEST_QUERY, data: {} },
       response => {
-        const { action, success, data } = response;
-        if (action == ACTIONS.FULFILLED_QUERY && success)
-          playbackRate.value = data.rate;
+        try {
+          const { action, success, data } = objectContract(response);
+          if (action == ACTIONS.FULFILLED_QUERY && success) playbackRate.value = data.rate;
+        } catch (e) {
+          console.warn('Received invalid message.');
+        }
       }
     );
   });
