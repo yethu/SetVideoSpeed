@@ -1,6 +1,7 @@
 'use strict';
 
 let playbackRate = document.getElementById('playbackRate');
+let loopControl = document.getElementById('loopControl');
 let setPlaybackRate = document.getElementById('setPlaybackRate');
 let resetPlaybackRate = document.getElementById('resetPlaybackRate');
 let closePopUp = document.getElementById('closePopUp');
@@ -16,7 +17,10 @@ const updateUI = () =>
       response => {
         try {
           const { action, success, data } = objectContract(response);
-          if (action == ACTIONS.FULFILLED_QUERY && success) playbackRate.value = data.rate;
+          if (action == ACTIONS.FULFILLED_QUERY && success) {
+            playbackRate.value = data.rate;
+            loopControl.checked = data.loop;
+          }
         } catch (e) {
           console.warn('Received invalid message.');
         }
@@ -56,3 +60,14 @@ closePopUp.addEventListener('click', _ => window.close());
 playbackRate.addEventListener('keypress', e => {
   if (e.key === 'Enter') setRateFromInput(playbackRate.value);
 });
+
+loopControl.addEventListener('click', e =>
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    let activeTab = tabs[0];
+    console.log(e.target.checked);
+    chrome.tabs.sendMessage(activeTab.id, {
+      action: ACTIONS.REQUEST_SET_LOOP,
+      data: { loop: e.target.checked },
+    });
+  })
+);
