@@ -4,10 +4,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   let { action, data } = request;
   switch (action) {
     case ACTIONS.REQUEST_SET_RATE:
-      handleRequestSetRate(data, sendResponse);
+      handleRequestSetState(data, action, sendResponse, setRate);
       break;
     case ACTIONS.REQUEST_SET_LOOP:
-      handleRequestSetLoop(data, sendResponse);
+      handleRequestSetState(data, action, sendResponse, setLoop);
       break;
     case ACTIONS.REQUEST_QUERY:
     default:
@@ -15,30 +15,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   }
 });
 
+const setRate = ({ rate }, video) => (video.playbackRate = rate);
+
+const setLoop = ({ loop }, video) => (video.loop = loop);
+
 const buildMessage = (action, success, data) => ({ action, success, data });
 
-const handleRequestSetRate = ({ rate }, sendResponse) => {
+const handleRequestSetState = (prop, action, sendResponse, setVideoProp) => {
   let videos = document.getElementsByTagName('video');
   let videoExists = videos.length != 0;
 
   if (videoExists) {
     let currentVideo = videos.item(0);
-    currentVideo.playbackRate = rate;
+    setVideoProp(prop, currentVideo);
   }
 
-  sendResponse(buildMessage(ACTIONS.FULFILLED_SET_RATE, videoExists, { rate }));
-};
-
-const handleRequestSetLoop = ({ loop }, sendResponse) => {
-  let videos = document.getElementsByTagName('video');
-  let videoExists = videos.length != 0;
-
-  if (videoExists) {
-    let currentVideo = videos.item(0);
-    currentVideo.loop = loop;
-  }
-
-  sendResponse(buildMessage(ACTIONS.FULFILLED_SET_LOOP, videoExists, { loop }));
+  sendResponse(buildMessage(action, videoExists, prop));
 };
 
 const handleRequestQuery = sendResponse => {
