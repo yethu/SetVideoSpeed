@@ -1,6 +1,7 @@
 'use strict';
 
 let playbackRate = document.getElementById('playbackRate');
+let loopControl = document.getElementById('loopControl');
 let setPlaybackRate = document.getElementById('setPlaybackRate');
 let resetPlaybackRate = document.getElementById('resetPlaybackRate');
 let closePopUp = document.getElementById('closePopUp');
@@ -16,7 +17,10 @@ const updateUI = () =>
       response => {
         try {
           const { action, success, data } = objectContract(response);
-          if (action == ACTIONS.FULFILLED_QUERY && success) playbackRate.value = data.rate;
+          if (action == ACTIONS.FULFILLED_QUERY && success) {
+            playbackRate.value = data.rate;
+            loopControl.checked = data.loop;
+          }
         } catch (e) {
           console.warn('Received invalid message.');
         }
