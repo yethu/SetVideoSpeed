@@ -6,6 +6,9 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     case ACTIONS.REQUEST_SET_RATE:
       handleRequestSetRate(data, sendResponse);
       break;
+    case ACTIONS.REQUEST_SET_LOOP:
+      handleRequestSetLoop(data, sendResponse);
+      break;
     case ACTIONS.REQUEST_QUERY:
     default:
       handleRequestQuery(sendResponse);
@@ -24,6 +27,18 @@ const handleRequestSetRate = ({ rate }, sendResponse) => {
   }
 
   sendResponse(buildMessage(ACTIONS.FULFILLED_SET_RATE, videoExists, { rate }));
+};
+
+const handleRequestSetLoop = ({ loop }, sendResponse) => {
+  let videos = document.getElementsByTagName('video');
+  let videoExists = videos.length != 0;
+
+  if (videoExists) {
+    let currentVideo = videos.item(0);
+    currentVideo.loop = loop;
+  }
+
+  sendResponse(buildMessage(ACTIONS.FULFILLED_SET_LOOP, videoExists, { loop }));
 };
 
 const handleRequestQuery = sendResponse => {
