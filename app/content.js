@@ -1,5 +1,7 @@
 'use strict';
 
+import ACTIONS from './constants';
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   let { action, data } = request;
   switch (action) {

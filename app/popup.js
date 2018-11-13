@@ -1,5 +1,8 @@
 'use strict';
 
+import ACTIONS from './constants';
+import { objectContract, numberContract } from './contracts';
+
 let playbackRate = document.getElementById('playbackRate');
 let loopControl = document.getElementById('loopControl');
 let setPlaybackRate = document.getElementById('setPlaybackRate');
