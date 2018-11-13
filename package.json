@@ -1,8 +1,10 @@
 {
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "clean": "rm -r dist/*"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^4.6.0",
     "webpack": "^4.25.1"
   },
   "dependencies": {
