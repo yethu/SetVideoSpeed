@@ -4,5 +4,8 @@
   },
   "devDependencies": {
     "webpack": "^4.25.1"
+  },
+  "dependencies": {
+    "ramda": "^0.25.0"
   }
 }
