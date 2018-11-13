@@ -5,3 +5,11 @@ const objectContract = o => {
     return o;
   }
 };
+
+const numberContract = n => {
+  if (typeof n != 'number' || n == NaN) {
+    throw new TypeError('not a number');
+  } else {
+    return n;
+  }
+};

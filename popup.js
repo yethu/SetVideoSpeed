@@ -41,9 +41,11 @@ const setRate = rate => {
 };
 
 const setRateFromInput = val => {
-  if (isNaN(val)) return;
-
-  setRate(val);
+  try {
+    setRate(numberContract(val));
+  } catch (_) {
+    console.error('Expected a number');
+  }
 };
 
 resetPlaybackRate.addEventListener('click', _ => {
@@ -52,7 +54,7 @@ resetPlaybackRate.addEventListener('click', _ => {
 });
 
 setPlaybackRate.addEventListener('click', _ =>
-  setRateFromInput(playbackRate.value)
+  setRateFromInput(parseFloat(playbackRate.value))
 );
 
 closePopUp.addEventListener('click', _ => window.close());
