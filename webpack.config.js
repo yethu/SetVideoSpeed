@@ -1,12 +1,12 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  context: __dirname,
+  context: `${__dirname}/app`,
   mode: 'production',
   entry: {
-    popup: ['./app/constants.js', './app/contracts.js', './app/popup.js'],
-    background: './app/background.js',
-    content: './app/content.js',
+    popup: ['./constants.js', './contracts.js', './popup.js'],
+    background: './background.js',
+    content: './content.js',
   },
   output: {
     filename: '[name].js',
@@ -14,19 +14,15 @@ module.exports = {
   plugins: [
     new CopyWebpackPlugin([
       {
-        from: './app/*.html',
+        from: '*.+(html|json)',
         flatten: true,
       },
       {
-        from: './app/*.json',
-        flatten: true,
-      },
-      {
-        from: './app/images',
+        from: 'images',
         to: './images',
       },
       {
-        from: './app/styles',
+        from: 'styles',
         to: './styles',
       },
     ]),
