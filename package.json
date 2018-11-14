@@ -1,10 +1,14 @@
 {
   "scripts": {
     "build": "webpack",
-    "clean": "rm -r dist/*"
+    "clean": "rm -r dist/*",
+    "test": "mocha -r esm"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
     "copy-webpack-plugin": "^4.6.0",
+    "esm": "^3.0.84",
+    "mocha": "^5.2.0",
     "webpack": "^4.25.1"
   },
   "dependencies": {}
