@@ -6,7 +6,7 @@ Note: This is a quick and dirty extension I made for fast-forwarding long confer
 
 ## Packed Extension Download
 
-Check [releases](https://github.com/yethu/SetVideoSpeed/releases) or click [here](https://github.com/yethu/SetVideoSpeed/releases/download/v1.3.1/SetVideoSpeed_v1.3.1.crx) to download latest packed extension.
+Check [releases](https://github.com/yethu/SetVideoSpeed/releases) or click [here](https://github.com/yethu/SetVideoSpeed/releases/download/v1.3.2/SetVideoSpeed_v1.3.2.crx) to download latest packed extension.
 
 ## Commands
 
