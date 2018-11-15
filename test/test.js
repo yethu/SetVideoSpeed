@@ -1,8 +1,11 @@
-import { objectContract, numberContract } from '../app/contracts';
 import { assert, expect } from 'chai';
 
+import ACTIONS from '../app/constants';
+import { buildMessage } from '../app/helpers';
+import { objectContract, numberContract } from '../app/contracts';
+
 describe('Contracts', () => {
-  describe('Object Contract', () => {
+  describe('objectContract/1', () => {
     it('should throw TypeError', () => {
       expect(objectContract).to.throw(TypeError);
     });
@@ -21,7 +24,7 @@ describe('Contracts', () => {
     });
   });
 
-  describe('Number Contract', () => {
+  describe('numberContract/1', () => {
     it('should throw TypeError', () => {
       expect(numberContract).to.throw(TypeError);
     });
@@ -49,6 +52,20 @@ describe('Contracts', () => {
     it('should return the number passed', () => {
       let number = 1.1;
       assert.equal(numberContract(number), number);
+    });
+  });
+});
+
+describe('Helpers', () => {
+  describe('buildMessage/3', () => {
+    it('should create object with required keys', () => {
+      expect(() =>
+        buildMessage(ACTIONS.FULFILLED_QUERY, true, {}).to.have.keys([
+          'action',
+          'success',
+          'data',
+        ])
+      );
     });
   });
 });

@@ -1,6 +1,7 @@
 'use strict';
 
 import ACTIONS from './constants';
+import { buildMessage } from './helpers';
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   let { action, data } = request;
@@ -20,8 +21,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 const setRate = ({ rate }, video) => (video.playbackRate = rate);
 
 const setLoop = ({ loop }, video) => (video.loop = loop);
-
-const buildMessage = (action, success, data) => ({ action, success, data });
 
 const handleRequestSetState = (prop, action, sendResponse, setVideoProp) => {
   let videos = document.getElementsByTagName('video');

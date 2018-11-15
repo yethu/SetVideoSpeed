@@ -1,0 +1,1 @@
+export const buildMessage = (action, success, data) => ({ action, success, data });
