@@ -25,7 +25,7 @@ const updateUI = () =>
             loopControl.checked = data.loop;
           }
         } catch (e) {
-          console.warn('Received invalid message.');
+          if (e instanceof TypeError) console.warn('Received invalid message.');
         }
       }
     );
@@ -46,8 +46,8 @@ const setRate = rate => {
 const setRateFromInput = val => {
   try {
     setRate(numberContract(val));
-  } catch (_) {
-    console.error('Expected a number');
+  } catch (e) {
+    if (e instanceof TypeError) console.error('Expected a number');
   }
 };
 
@@ -63,13 +63,12 @@ setPlaybackRate.addEventListener('click', _ =>
 closePopUp.addEventListener('click', _ => window.close());
 
 playbackRate.addEventListener('keypress', e => {
-  if (e.key === 'Enter') setRateFromInput(playbackRate.value);
+  if (e.key === 'Enter') setRateFromInput(parseFloat(playbackRate.value));
 });
 
 loopControl.addEventListener('click', e =>
   chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
     let activeTab = tabs[0];
-    console.log(e.target.checked);
     chrome.tabs.sendMessage(activeTab.id, {
       action: ACTIONS.REQUEST_SET_LOOP,
       data: { loop: e.target.checked },
