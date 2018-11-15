@@ -63,7 +63,7 @@ setPlaybackRate.addEventListener('click', _ =>
 closePopUp.addEventListener('click', _ => window.close());
 
 playbackRate.addEventListener('keypress', e => {
-  if (e.key === 'Enter') setRateFromInput(playbackRate.value);
+  if (e.key === 'Enter') setRateFromInput(parseFloat(playbackRate.value));
 });
 
 loopControl.addEventListener('click', e =>
