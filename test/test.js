@@ -15,7 +15,12 @@ describe('Contracts', () => {
     });
 
     it('should throw TypeError when `null` is passed', () => {
-      expect(() => objectContract(null).to.throw(TypeError));
+      expect(() => objectContract(null)).to.throw(TypeError);
+    });
+
+    it('should not throw TypeError when object is passed', () => {
+      let object = { foo: 'bar' };
+      expect(() => objectContract(object)).to.not.throw(TypeError);
     });
 
     it('should return the object passed', () => {
@@ -34,19 +39,24 @@ describe('Contracts', () => {
     });
 
     it('should throw TypeError when `null` is passed', () => {
-      expect(() => numberContract(null).to.throw(TypeError));
+      expect(() => numberContract(null)).to.throw(TypeError);
     });
 
     it('should throw TypeError when `NaN` is passed', () => {
-      expect(() => numberContract(NaN).to.throw(TypeError));
+      expect(() => numberContract(NaN)).to.throw(TypeError);
     });
 
     it('should throw TypeError when `string` representation of a `number` is passed', () => {
-      expect(() => numberContract('1.1').to.throw(TypeError));
+      expect(() => numberContract('1.1')).to.throw(TypeError);
     });
 
     it('should throw TypeError when invalid `string` representation of a `number` is passed', () => {
-      expect(() => numberContract('foo').to.throw(TypeError));
+      expect(() => numberContract('foo')).to.throw(TypeError);
+    });
+
+    it('should not throw TypeError when a valid `number` is passed', () => {
+      let number = 1.1;
+      expect(() => numberContract(number)).to.not.throw(TypeError);
     });
 
     it('should return the number passed', () => {
